@@ -4,7 +4,7 @@ export default function Working(props) {
 //배열이 아닌 객체로 전달 받았으므로 map을 사용하려면 Object.keys()통해  key의 값들을 배열로 정렬
 const keyArr = Object.keys(props); 
 
-// console.log(props);  // id, title,content, isDOne 
+console.log(props);  // id, title,content, isDOne 
 // console.log(keyArr); // 0,1,2,3,4,5
 
 
