@@ -1,14 +1,15 @@
-import Header from "./components/layout/Header";
-import TodoController from "./components/todo/TodoController";
+import Header from "component/header/Header";
+import Main from "component/main/Main";
+import Footer from "component/footer/Footer";
 
-// 현재 컴포넌트가 어떠한 기능을 하는 지 파악하기 힘들기 때문에
-// 간소화 시키기
+//html 구조를 활용
 const App = () => {
   return (
     <>
-      <Header /> {/* <header>태그로 구역 구별 */}
-      <TodoController />  {/* 중앙 컨트롤러 역할 */}
-    </>
+      <Header/>
+      <Main/>    
+      <Footer/>
+      </>
   );
 };
 
