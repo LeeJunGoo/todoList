@@ -1,38 +1,29 @@
 import React from 'react'
-import TodoForm from './TodoForm'      //입력 기능
-import TodoList from './TodoList'      //입력 값을 보여주는 기능  
+import TodoForm from './TodoForm'     
+import TodoList from './TodoList'     
 import { useState } from 'react';
 
 //초기값 설정
 const todoObj = {
     id: 0,
-    title: "",
-    content: "",
+    title: "리액트 공부하기",
+    content: "리액트 기초를 공부해봅시다.",
     isDone: false,
 };
 
 function Main() {
  
- const [useTodo, setTodo] = useState([]);
+ const [todo, setTodo] = useState([todoObj]); 
+// const [useTodo, setTodo] = useState([]);  
 
-//    console.log(useTodo); 
-
-
-
-   const DoneTodo = useTodo.filter((item) => item.isDone ? true : false);  //true
-   const WorkingTodo = useTodo.filter((item) => !item.isDone ? true : false ); //false
+//  console.log(useTodo);
+  
 
     return (
    <>
     <TodoForm setTodo = {setTodo}/>
-    <div>
-    <p>Working</p>  
-    <TodoList todo = {WorkingTodo} setTodo ={setTodo}></TodoList>
-    </div>
-    <div>
-      <p>isDone</p>
-    <TodoList todo = {DoneTodo} setTodo = {setTodo}></TodoList>
-    </div>
+    <TodoList todo = {todo} setTodo ={setTodo}></TodoList>
+    
    
    </>
   )

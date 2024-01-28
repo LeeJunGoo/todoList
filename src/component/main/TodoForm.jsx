@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
  
 function TodoForm({setTodo}) {
-// const title = "";   error  Assignment to constant variable. TypeError: Assignment to constant variable. at onTitleChangeHandler
-// const content = "";  error  Assignment to constant variable. TypeError: Assignment to constant variable. at onContentChangeHandler
+  
+const [title, setTitle] = useState("");
+const [content, setContent] = useState("");
 
-let title;   // let title = ""; 빈 문자열이 계속 들어가 값이 입력되지 않는다.
-let content;
 const onTitleChangeHandler = (e) => {
-    title = e.target.value;
+    setTitle(e.target.value);
 }
 
 const onContentChangeHandler = (e) => {
-   content = e.target.value;
+   setContent(e.target.value);
 }
 
   
@@ -21,15 +20,17 @@ const onContentChangeHandler = (e) => {
 const setSubmit = (e) => {
   e.preventDefault(); // 사용 전) 버튼 클릭 시 새로고침 현상 발생
 
+  //내림차순
   setTodo((prev) => (
-    [...prev,
-    {id: crypto.randomUUID(), 
+    [{id: crypto.randomUUID(),   //prev.length() + 1
     title: title,
     content: content,
-    isDone: false,
-}])
+    isDone: false},
+    ...prev,
+  ])
   )
-
+ setTitle("");
+ setContent("");
 }
 
 
