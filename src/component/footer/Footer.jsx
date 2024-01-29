@@ -1,11 +1,9 @@
 import React from 'react'
-
 function Footer() {
   return (
-    <div>
-<p>이준구</p>
-
-    </div>
+    <footer>
+    <p>이준구</p>
+    </footer>
   )
 }
 
