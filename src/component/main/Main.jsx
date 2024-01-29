@@ -9,6 +9,7 @@ const todoObj = {
     title: "리액트 공부하기",
     content: "리액트 기초를 공부해봅시다.",
     isDone: false,
+    deadline: new Date,
 };
 
 function Main() {
@@ -20,12 +21,12 @@ function Main() {
   
 
     return (
-   <>
+   <main>
     <TodoForm setTodo = {setTodo}/>
     <TodoList todo = {todo} setTodo ={setTodo}></TodoList>
     
    
-   </>
+   </main>
   )
 }
 
