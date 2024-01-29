@@ -22,7 +22,7 @@ function Main() {
 
     return (
    <main>
-    <TodoForm setTodo = {setTodo}/>
+    <TodoForm todo ={todo} setTodo = {setTodo}/>
     <TodoList todo = {todo} setTodo ={setTodo}></TodoList>
     
    
