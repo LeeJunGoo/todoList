@@ -3,7 +3,6 @@ import TodoItem from './TodoItem'
 import 'component/styles/TodoList.css'
 
 
-//props의 전달 인저와 받는 인자의 이름은 동일해야한다.!!
 function TodoList({todo, setTodo}) {
 
   const DoneTodo = todo.filter((item) => item.isDone ? true : false);  //true
@@ -16,7 +15,7 @@ function TodoList({todo, setTodo}) {
         setTodo((prev) => {
           const findNext = prev.find((item) => item.id === id ? true : false); // 해당 id값을 객체로 출력
           findNext.isDone = !findNext.isDone;   //해당 객체의 상태 반전
-          // console.log(filterNext);
+          
               
           const filterPrev = prev.filter((item) => item.id !== id ? true : false);  // 해당 되지 않는 나머지를 배열로 출력
           return [...filterPrev, findNext]

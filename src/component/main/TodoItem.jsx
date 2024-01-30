@@ -2,7 +2,8 @@ import React from 'react'
 import 'component/styles/TodoItem.css'
 function TodoItem({curTodo, ToggleButton, DeleteButton, btnText}) {
 
-
+  const date = new Date(curTodo.deadline);
+  const options = { year: 'numeric', month: 'long', day: 'numeric'};
 
 
   return (
@@ -13,7 +14,7 @@ function TodoItem({curTodo, ToggleButton, DeleteButton, btnText}) {
     </article>
 
     <article className='card-action'>
-    <time className='card-date'>{new Date(curTodo.deadline).toLocaleDateString()}</time>
+    <time className='card-date'>{date.toLocaleDateString('ko-KR', options)}</time>
     <section className='card-button'>
     <button className='card-toggle' onClick={() => ToggleButton(curTodo.id)}>{btnText}</button>
     <button className='card-delete' onClick={() => DeleteButton(curTodo.id)}>삭제</button>

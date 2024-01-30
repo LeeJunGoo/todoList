@@ -15,9 +15,6 @@ const todoObj = {
 function Main() {
  
  const [todo, setTodo] = useState([todoObj]); 
-// const [useTodo, setTodo] = useState([]);  
-
-//  console.log(useTodo);
   
 
     return (
