@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
  
-function TodoForm({todo, setTodo}) {
+function TodoForm({setTodo}) {
 
 const [title, setTitle] = useState("");
 const [content, setContent] = useState("");
@@ -19,6 +19,8 @@ const onContentChangeHandler = (e) => {
 const onDeadlineChangeHandler = (e) => {    
    setDate(e.target.value);
 };
+
+
 
 const onSortChangeHandler = (e) => {
   const order = e.target.value;
@@ -41,9 +43,8 @@ const onSortChangeHandler = (e) => {
 
   
 const setSubmit = (e) => {
-  e.preventDefault(); // 사용 전) 버튼 클릭 시 새로고침 현상 발생
+  e.preventDefault(); // 이벤트의 기본 동작을 취소
 
-  //내림차순
   setTodo((prev) => (
     [{id: crypto.randomUUID(),   //prev.length() + 1
     title: title,
@@ -59,7 +60,7 @@ const setSubmit = (e) => {
  setDate("");
 
 }
-console.log(todo);
+
 
   return (
     <article className='search-area'>

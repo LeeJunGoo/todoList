@@ -15,14 +15,11 @@ const todoObj = {
 function Main() {
  
  const [todo, setTodo] = useState([todoObj]); 
-// const [useTodo, setTodo] = useState([]);  
-
-//  console.log(useTodo);
   
 
     return (
    <main>
-    <TodoForm todo ={todo} setTodo = {setTodo}/>
+    <TodoForm setTodo = {setTodo}/>
     <TodoList todo = {todo} setTodo ={setTodo}></TodoList>
     
    
