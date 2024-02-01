@@ -2,7 +2,7 @@ import React from 'react'
 function Footer() {
   return (
     <footer>
-    <p>이준구</p>
+    <p>footer</p>
     </footer>
   )
 }
