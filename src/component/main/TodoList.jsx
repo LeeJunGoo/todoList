@@ -1,6 +1,33 @@
 import React, { Children, useState } from 'react'
 import TodoItem from './TodoItem'
 import 'component/styles/TodoList.css'
+import styled from 'styled-components';
+
+
+const WorkingArea = styled.section`
+  border: 1px solid black;
+
+`
+
+const DoneArea = styled.section`
+  border: 1px solid black;
+  
+`
+
+
+
+const WorkingList = styled.article`
+display: flex;
+flex-direction: row;
+`
+const DoneList = styled.article`
+  display: flex;
+  flex: row;
+`
+
+const FontSize = styled.h1`
+  font-size: 5rem;
+`
 
 
 function TodoList({todo, setTodo}) {
@@ -36,10 +63,9 @@ function TodoList({todo, setTodo}) {
 
   return (
   <article className='todoList-area'>
-
-  <section className='working-area'>
-  <h1>Working</h1>
-  <article className='workingList-area'>
+  <WorkingArea>
+  <FontSize>Working</FontSize>
+  <WorkingList>
    {WorkingTodo.map((item) => ( 
     <TodoItem 
     key={item.id}
@@ -49,13 +75,13 @@ function TodoList({todo, setTodo}) {
     btnText = "완료"
     />
     ))}
-      </article>
-  </section>
+      </WorkingList>
+      </WorkingArea>
     
 
-  <section className='Done-area'>
-      <h1>Done</h1>
-      <article className='doneList-area'>
+  <DoneArea>
+     <FontSize>Done</FontSize>
+     <DoneList>
   {DoneTodo.map((item) => ( 
     <TodoItem
     key={item.id}
@@ -65,8 +91,8 @@ function TodoList({todo, setTodo}) {
     btnText = "취소"
     />
     ))}
-     </article>
-  </section>
+     </DoneList>
+     </DoneArea>
 </article>
   )
 }
