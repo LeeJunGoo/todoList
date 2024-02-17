@@ -32,7 +32,8 @@ const CardAction = styled.article`
 const CardContent = styled.p`
   border: 1px solid black;
   padding: 5px;
-  text-decoration: ${(props) => (props.isDone ? "red wavy underline" : "none")};
+  text-decoration: ${(props) =>
+    props.$isDone ? "red wavy underline" : "none"};
   display: flex;
   justify-content: center;
 `;
@@ -60,8 +61,8 @@ function TodoItem({ curTodo, ToggleButton, DeleteButton, btnText }) {
   return (
     <Card>
       <CardBody>
-        <CardContent isDone={curTodo.isDone}>{curTodo.title} </CardContent>
-        <CardContent isDone={curTodo.isDone}>{curTodo.content}</CardContent>
+        <CardContent $isDone={curTodo.isDone}>{curTodo.title} </CardContent>
+        <CardContent $isDone={curTodo.isDone}>{curTodo.content}</CardContent>
         <CardDate>{date.toLocaleDateString("ko-KR", options)}</CardDate>
       </CardBody>
 

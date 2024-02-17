@@ -2,8 +2,8 @@ import React from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import { useState } from "react";
-//초기값 설정
 
+//초기값 설정
 const todoObj = {
   id: 0,
   title: "리액트 공부하기",
