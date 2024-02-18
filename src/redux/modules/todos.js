@@ -1,13 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // 초기 상태값 설정
-const initialState = {
-  id: 0,
-  title: "리액트 공부하기",
-  content: "리액트 기초를 공부해봅시다.",
-  isDone: false,
-  deadline: new Date(),
-};
+const initialState = [];
 
 //slice 설정
 // action creator, reducer
@@ -16,11 +10,31 @@ const todosSlice = createSlice({
   name: "todos",
   initialState,
   //상태 변화
-  reducers: {},
+  reducers: {
+    //추가 기능
+    addTodo: (state, action) => {
+      return [action.payload, ...state];
+    },
+
+    //수정 기능
+    modifyTodo: (state, action) => {
+      return state.map((item) => {
+        if (item.id === action.payload) {
+          return { ...item, isDone: !item.isDone };
+        } else {
+          return item;
+        }
+      });
+    },
+    //삭제 기능
+    deleteTodo: (state, action) => {
+      return state.filter((item) => item.id !== action.payload);
+    },
+  },
 });
 
 // action creator
-// export const  {} = todosSlice.actions
+export const { addTodo, deleteTodo, modifyTodo } = todosSlice.actions;
 
 //reducer, action value
 export default todosSlice.reducer;

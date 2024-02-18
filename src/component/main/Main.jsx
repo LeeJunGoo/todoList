@@ -1,24 +1,30 @@
 import React from "react";
+import api from "../../axios/api";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../redux/modules/todos";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
-import { useState } from "react";
-
-//초기값 설정
-const todoObj = {
-  id: 0,
-  title: "리액트 공부하기",
-  content: "리액트 기초를 공부해봅시다.",
-  isDone: false,
-  deadline: new Date(),
-};
+import { useEffect } from "react";
 
 function Main() {
-  const [todo, setTodo] = useState([todoObj]);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
+  //1. axios.get: 데이터 읽어오기
+  const fetchTodos = async () => {
+    const { data } = await api.get("/todos");
+
+    return data.map((item) => {
+      return dispatch(addTodo(item));
+    });
+  };
   return (
     <main>
-      <TodoForm setTodo={setTodo} />
-      <TodoList todo={todo} setTodo={setTodo}></TodoList>
+      <TodoForm />
+      <TodoList />
     </main>
   );
 }

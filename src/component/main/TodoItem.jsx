@@ -1,6 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 
+function TodoItem({ curTodo, ToggleButton, DeleteButton, btnText }) {
+  const date = new Date(curTodo.deadline);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+
+  return (
+    <Card>
+      <CardBody>
+        <CardContent $isDone={curTodo.isDone}>{curTodo.title} </CardContent>
+        <CardContent $isDone={curTodo.isDone}>{curTodo.content}</CardContent>
+        <CardDate>{date.toLocaleDateString("ko-KR", options)}</CardDate>
+      </CardBody>
+
+      <CardAction>
+        <CardButton onClick={() => ToggleButton(curTodo.id)}>
+          {btnText}
+        </CardButton>
+        <CardButton onClick={() => DeleteButton(curTodo.id)}>삭제</CardButton>
+      </CardAction>
+    </Card>
+  );
+}
+
+export default TodoItem;
+
 const Card = styled.section`
   border: 1px solid tan;
   border-radius: 5px;
@@ -53,27 +77,3 @@ const CardButton = styled.button`
   width: 100px;
   justify-content: center;
 `;
-
-function TodoItem({ curTodo, ToggleButton, DeleteButton, btnText }) {
-  const date = new Date(curTodo.deadline);
-  const options = { year: "numeric", month: "long", day: "numeric" };
-
-  return (
-    <Card>
-      <CardBody>
-        <CardContent $isDone={curTodo.isDone}>{curTodo.title} </CardContent>
-        <CardContent $isDone={curTodo.isDone}>{curTodo.content}</CardContent>
-        <CardDate>{date.toLocaleDateString("ko-KR", options)}</CardDate>
-      </CardBody>
-
-      <CardAction>
-        <CardButton onClick={() => ToggleButton(curTodo.id)}>
-          {btnText}
-        </CardButton>
-        <CardButton onClick={() => DeleteButton(curTodo.id)}>삭제</CardButton>
-      </CardAction>
-    </Card>
-  );
-}
-
-export default TodoItem;

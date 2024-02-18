@@ -1,0 +1,26 @@
+0. redux 및 redux toolkit 패키지 설치
+1. redux 폴더 생성
+2. 하위 폴더 config 폴더와, modules 폴더 생성
+3. config 폴더에 configStore.js라는  store: 중앙 데이터 관리소(저장소) 역할  
+4. index.js에서 " <Provider store={store}> " 선언
+5. modules 폴더에 todo.js라는 전역 state를 선언
+
+6. useSelector를 사용하여 store에 저장된 데이터 중 todos를 가져온다.
+7. useDispatch를 사용하여 action을 store에 전달(store 안에 있는 reducer를 통해 상태 변화를 일으킨다.)
+
+
+
+
+- Provider한 store를 app.jsx에서 호출 ==> modules에서 선언한 action.creator를 사용
+- slice: name, initialState, reducer 존재
+- reducer(state, action)
+- action: type, payload 구성 ==> " type의 payload 만큼 증가 "
+- dispatch를 통해 action ==> store에 전달
+-----------------------------------------------------------------------
+
+0. Axios 패키지 설치
+1. Axios 폴더 생성 및 api.js 생성
+2. .env 파일을 생성하여 base URL 형성
+
+
+
