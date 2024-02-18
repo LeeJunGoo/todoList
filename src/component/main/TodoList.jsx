@@ -1,100 +1,92 @@
-import React, { Children, useState } from 'react'
-import TodoItem from './TodoItem'
-import 'component/styles/TodoList.css'
-import styled from 'styled-components';
+import React from "react";
+import api from "../../axios/api";
+import TodoItem from "./TodoItem";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTodo, modifyTodo } from "../../redux/modules/todos";
 
+function TodoList() {
+  const dispatch = useDispatch();
+
+  //useSelector를 사용하여 store에 저장된 데이터 중 todos를 가져온다.
+  const todos = useSelector((state) => state.todos);
+
+  console.log(todos);
+
+  const DoneTodo = todos.filter((item) => (item.isDone ? true : false)); //true
+  const WorkingTodo = todos.filter((item) => (!item.isDone ? true : false)); //false
+
+  const ToggleButtonHandler = async (id) => {
+    dispatch(modifyTodo(id));
+
+    const result = todos.find((item) => item.id === id);
+
+    // axios.patch : 서버에 데이터를 수정한다.
+    api.patch(`/todos/${id}`, {
+      isDone: !result.isDone,
+    });
+  };
+
+  const DeleteButtonHandler = async (id) => {
+    dispatch(deleteTodo(id));
+    //3. axios.delete : 서버의 데이터를 삭제한다.
+    api.delete(`/todos/${id}`);
+  };
+
+  return (
+    <article className="todoList-area">
+      <WorkingArea>
+        <FontSize>Working</FontSize>
+        <WorkingList>
+          {WorkingTodo.map((item) => (
+            <TodoItem
+              key={item.id}
+              curTodo={item}
+              ToggleButton={ToggleButtonHandler}
+              DeleteButton={DeleteButtonHandler}
+              btnText="완료"
+            />
+          ))}
+        </WorkingList>
+      </WorkingArea>
+
+      <DoneArea>
+        <FontSize>Done</FontSize>
+        <DoneList>
+          {DoneTodo.map((item) => (
+            <TodoItem
+              key={item.id}
+              curTodo={item}
+              ToggleButton={ToggleButtonHandler}
+              DeleteButton={DeleteButtonHandler}
+              btnText="취소"
+            />
+          ))}
+        </DoneList>
+      </DoneArea>
+    </article>
+  );
+}
+
+export default TodoList;
 
 const WorkingArea = styled.section`
   border: 1px solid black;
-
-`
+`;
 
 const DoneArea = styled.section`
   border: 1px solid black;
-  
-`
-
-
+`;
 
 const WorkingList = styled.article`
-display: flex;
-flex-direction: row;
-`
+  display: flex;
+  flex-direction: row;
+`;
 const DoneList = styled.article`
   display: flex;
   flex: row;
-`
+`;
 
 const FontSize = styled.h1`
   font-size: 5rem;
-`
-
-
-function TodoList({todo, setTodo}) {
-
-  const DoneTodo = todo.filter((item) => item.isDone ? true : false);  //true
-  const WorkingTodo = todo.filter((item) => !item.isDone ? true : false ); //false
-
-
-
-
-  const ToggleButtonHandler = (id) => {
-        setTodo((prev) => {
-          const findNext = prev.find((item) => item.id === id ? true : false); // 해당 id값을 객체로 출력
-          findNext.isDone = !findNext.isDone;   //해당 객체의 상태 반전
-          
-              
-          const filterPrev = prev.filter((item) => item.id !== id ? true : false);  // 해당 되지 않는 나머지를 배열로 출력
-          return [...filterPrev, findNext]
-        
-      });
-      }
-
-
-  const DeleteButtonHandler = (id) => (
-   setTodo((prev) => prev.filter((item)=> item.id !== id))
-
-  )
-
-
-
-
- 
-
-  return (
-  <article className='todoList-area'>
-  <WorkingArea>
-  <FontSize>Working</FontSize>
-  <WorkingList>
-   {WorkingTodo.map((item) => ( 
-    <TodoItem 
-    key={item.id}
-    curTodo = {item}
-    ToggleButton = {ToggleButtonHandler}
-    DeleteButton = {DeleteButtonHandler}
-    btnText = "완료"
-    />
-    ))}
-      </WorkingList>
-      </WorkingArea>
-    
-
-  <DoneArea>
-     <FontSize>Done</FontSize>
-     <DoneList>
-  {DoneTodo.map((item) => ( 
-    <TodoItem
-    key={item.id}
-    curTodo = {item}
-    ToggleButton = {ToggleButtonHandler}
-    DeleteButton = {DeleteButtonHandler}
-    btnText = "취소"
-    />
-    ))}
-     </DoneList>
-     </DoneArea>
-</article>
-  )
-}
-
-export default TodoList
+`;
