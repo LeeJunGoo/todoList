@@ -15,6 +15,9 @@ const todosSlice = createSlice({
     addTodo: (state, action) => {
       return [action.payload, ...state];
     },
+    setTodo: (state, action) => {
+      return (state = action.payload);
+    },
 
     //수정 기능
     modifyTodo: (state, action) => {
@@ -34,7 +37,7 @@ const todosSlice = createSlice({
 });
 
 // action creator
-export const { addTodo, deleteTodo, modifyTodo } = todosSlice.actions;
+export const { addTodo, deleteTodo, modifyTodo, setTodo } = todosSlice.actions;
 
 //reducer, action value
 export default todosSlice.reducer;
