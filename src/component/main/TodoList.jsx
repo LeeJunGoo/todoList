@@ -3,18 +3,34 @@ import api from "../../axios/api";
 import TodoItem from "./TodoItem";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, modifyTodo } from "../../redux/modules/todos";
+import { deleteTodo, modifyTodo, setTodo } from "../../redux/modules/todos";
+import { useEffect } from "react";
 
 function TodoList() {
   const dispatch = useDispatch();
-
   //useSelector를 사용하여 store에 저장된 데이터 중 todos를 가져온다.
   const todos = useSelector((state) => state.todos);
 
-  console.log(todos);
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
-  const DoneTodo = todos.filter((item) => (item.isDone ? true : false)); //true
-  const WorkingTodo = todos.filter((item) => (!item.isDone ? true : false)); //false
+  //1. axios.get: 데이터 읽어오기: 서버측
+  const fetchTodos = async () => {
+    const { data } = await api.get("/todos");
+    console.log(data);
+
+    //2. redux store에 저장: 클라이언트 측
+    dispatch(setTodo(data));
+  };
+
+  console.log(todos);
+  const DoneTodo = todos
+    .filter((item) => (item.isDone ? true : false))
+    .sort((a, b) => new Date(a.deadline) - new Date(b.deadline)); //true
+  const WorkingTodo = todos
+    .filter((item) => (!item.isDone ? true : false))
+    .sort((a, b) => new Date(a.deadline) - new Date(b.deadline)); //false
 
   const ToggleButtonHandler = async (id) => {
     dispatch(modifyTodo(id));
