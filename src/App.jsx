@@ -1,16 +1,12 @@
-import Header from "component/header/Header";
-import Main from "component/main/Main";
-import Footer from "component/footer/Footer";
 import { GlobalStyle } from "../src/shared/GlobalStyle";
+import { Router } from "./shared/Router";
 
 //html 구조를 활용
 const App = () => {
   return (
     <>
-      <GlobalStyle></GlobalStyle>
-      <Header />
-      <Main />
-      <Footer />
+      <GlobalStyle />
+      <Router />
     </>
   );
 };

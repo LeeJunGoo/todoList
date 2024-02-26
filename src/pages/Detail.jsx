@@ -1,15 +1,29 @@
+import { deleteTodos, editTodos, singleTodo } from "../axios/api";
+import TodoItem from "component/main/TodoItem";
+import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { editTodos, fetchTodos, deleteTodos } from "../../axios/api";
-import TodoItem from "./TodoItem";
 
-function TodoList() {
+function Detail() {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { id } = useParams();
+
+  const {
+    data: todo,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["todos", id],
+    queryFn: () => singleTodo(id),
+  });
 
   const { mutate: toggleMutate } = useMutation({
     mutationFn: ({ id, isDone }) => editTodos(id, isDone),
     onSuccess: () => {
       queryClient.invalidateQueries("todos");
+      navigate("/");
     },
   });
 
@@ -17,16 +31,8 @@ function TodoList() {
     mutationFn: (id) => deleteTodos(id),
     onSuccess: () => {
       queryClient.invalidateQueries("todos");
+      navigate("/");
     },
-  });
-
-  const {
-    data: todos,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["todos"],
-    queryFn: fetchTodos,
   });
 
   if (isLoading) {
@@ -35,13 +41,6 @@ function TodoList() {
   if (error) {
     return <div>Error 발생</div>;
   }
-
-  const DoneTodo = todos
-    .filter((item) => (item.isDone ? true : false))
-    .sort((a, b) => new Date(a.deadline) - new Date(b.deadline)); //true
-  const WorkingTodo = todos
-    .filter((item) => (!item.isDone ? true : false))
-    .sort((a, b) => new Date(a.deadline) - new Date(b.deadline)); //false
 
   const ToggleButtonHandler = async (todo) => {
     toggleMutate(todo);
@@ -54,39 +53,22 @@ function TodoList() {
   return (
     <article className="todoList-area">
       <WorkingArea>
-        <FontSize>Working</FontSize>
+        <FontSize>DetailPage</FontSize>
         <WorkingList>
-          {WorkingTodo.map((item) => (
-            <TodoItem
-              key={item.id}
-              curTodo={item}
-              ToggleButton={ToggleButtonHandler}
-              DeleteButton={DeleteButtonHandler}
-              btnText="완료"
-            />
-          ))}
+          <TodoItem
+            key={todo.id}
+            curTodo={todo}
+            ToggleButton={ToggleButtonHandler}
+            DeleteButton={DeleteButtonHandler}
+            btnText="완료"
+          />
         </WorkingList>
       </WorkingArea>
-
-      <DoneArea>
-        <FontSize>Done</FontSize>
-        <DoneList>
-          {DoneTodo.map((item) => (
-            <TodoItem
-              key={item.id}
-              curTodo={item}
-              ToggleButton={ToggleButtonHandler}
-              DeleteButton={DeleteButtonHandler}
-              btnText="취소"
-            />
-          ))}
-        </DoneList>
-      </DoneArea>
     </article>
   );
 }
 
-export default TodoList;
+export default Detail;
 
 const WorkingArea = styled.section`
   border: 1px solid black;
