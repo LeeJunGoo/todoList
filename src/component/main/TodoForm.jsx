@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import api from "../../axios/api";
-import { useDispatch } from "react-redux";
-import { addTodo } from "../../redux/modules/todos";
+import { createTodos } from "../../axios/api";
+import { useMutation, useQueryClient } from "react-query";
 
 function TodoForm() {
   const [title, setTitle] = useState("");
@@ -9,8 +8,14 @@ function TodoForm() {
   const [date, setDate] = useState("");
   const [sort, setSort] = useState("");
 
-  //1. action을 store에 전달
-  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+  const { mutate, isPending, isError } = useMutation({
+    mutationFn: (newTodo) => createTodos(newTodo),
+    //갱신
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+    },
+  });
 
   const onTitleChangeHandler = (e) => {
     setTitle(e.target.value);
@@ -53,35 +58,26 @@ function TodoForm() {
       deadline: date.toString(),
     };
 
-    //2. action creator를 호출
-    dispatch(addTodo(newTodo));
-
-    //axios.post: 서버에 값을 저장(추가)
-    api.post(`/todos`, newTodo);
+    mutate(newTodo);
 
     setTitle("");
     setContent("");
     setDate("");
   };
+  if (isPending) {
+    //수행문
+  }
+
+  if (isError) {
+    //수행문
+  }
 
   return (
     <article className="search-area">
       <form onSubmit={setSubmit}>
-        <input
-          type="text"
-          value={title}
-          onChange={onTitleChangeHandler}
-        ></input>
-        <input
-          type="text"
-          value={content}
-          onChange={onContentChangeHandler}
-        ></input>
-        <input
-          type="date"
-          value={date}
-          onChange={onDeadlineChangeHandler}
-        ></input>
+        <input type="text" value={title} onChange={onTitleChangeHandler}></input>
+        <input type="text" value={content} onChange={onContentChangeHandler}></input>
+        <input type="date" value={date} onChange={onDeadlineChangeHandler}></input>
         <button type="submit">추가하기</button>
       </form>
       <select value={sort} onChange={onSortChangeHandler}>

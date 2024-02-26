@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function TodoItem({ curTodo, ToggleButton, DeleteButton, btnText }) {
@@ -8,15 +8,15 @@ function TodoItem({ curTodo, ToggleButton, DeleteButton, btnText }) {
   return (
     <Card>
       <CardBody>
-        <CardContent $isDone={curTodo.isDone}>{curTodo.title} </CardContent>
+        <CardLink $isDone={curTodo.isDone} to={`/detail/${curTodo.id}`}>
+          {curTodo.title}{" "}
+        </CardLink>
         <CardContent $isDone={curTodo.isDone}>{curTodo.content}</CardContent>
         <CardDate>{date.toLocaleDateString("ko-KR", options)}</CardDate>
       </CardBody>
 
       <CardAction>
-        <CardButton onClick={() => ToggleButton(curTodo.id)}>
-          {btnText}
-        </CardButton>
+        <CardButton onClick={() => ToggleButton({ id: curTodo.id, isDone: !curTodo.isDone })}>{btnText}</CardButton>
         <CardButton onClick={() => DeleteButton(curTodo.id)}>삭제</CardButton>
       </CardAction>
     </Card>
@@ -53,11 +53,18 @@ const CardAction = styled.article`
   flex-direction: row;
 `;
 
+const CardLink = styled(Link)`
+  border: 1px solid black;
+  padding: 5px;
+  text-decoration: ${(props) => (props.$isDone ? "red wavy underline" : "none")};
+  display: flex;
+  justify-content: center;
+`;
+
 const CardContent = styled.p`
   border: 1px solid black;
   padding: 5px;
-  text-decoration: ${(props) =>
-    props.$isDone ? "red wavy underline" : "none"};
+  text-decoration: ${(props) => (props.$isDone ? "red wavy underline" : "none")};
   display: flex;
   justify-content: center;
 `;
