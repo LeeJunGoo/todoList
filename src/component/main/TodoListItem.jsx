@@ -5,82 +5,57 @@ function TodoItem({ curTodo, ToggleButton, DeleteButton, btnText }) {
   const date = new Date(curTodo.deadline);
   const options = { year: "numeric", month: "long", day: "numeric" };
 
-  return (
+  return curTodo.isDone === false ? (
     <Card>
-      <CardBody>
-        <CardLink $isDone={curTodo.isDone} to={`/detail/${curTodo.id}`}>
-          {curTodo.title}{" "}
-        </CardLink>
-        <CardContent $isDone={curTodo.isDone}>{curTodo.content}</CardContent>
-        <CardDate>{date.toLocaleDateString("ko-KR", options)}</CardDate>
-      </CardBody>
+      <StP>{curTodo.title}</StP>
+      <StTime>{date.toLocaleDateString("ko-KR", options)}</StTime>
 
-      <CardAction>
-        <CardButton onClick={() => ToggleButton({ id: curTodo.id, isDone: !curTodo.isDone })}>{btnText}</CardButton>
-        <CardButton onClick={() => DeleteButton(curTodo.id)}>삭제</CardButton>
-      </CardAction>
+      <div>
+        <Link $isDone={curTodo.isDone} to={`/detail/${curTodo.id}`}>
+          닉네임
+        </Link>
+        <p>프로필 사진</p>
+      </div>
+      <StP2 $isDone={curTodo.isDone}>{curTodo.content}</StP2>
+      <StDiv>
+        <button onClick={() => ToggleButton({ id: curTodo.id, isDone: !curTodo.isDone })}>{btnText}</button>
+        <button onClick={() => DeleteButton(curTodo.id)}>삭제</button>
+      </StDiv>
     </Card>
-  );
+  ) : null;
 }
 
 export default TodoItem;
 
-const Card = styled.section`
+const Card = styled.li`
+  display: flex;
+  flex-direction: column;
   border: 1px solid tan;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  width: 200px;
-  height: 200px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  padding: 20px;
+  width: 300px;
+  height: 400px;
+  gap: 5px;
 `;
 
-const CardBody = styled.article`
-  border: 1px solid yellowgreen;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 80%;
-  margin-bottom: 5px;
+const StP = styled.p`
+  font-size: 40px;
 `;
 
-const CardAction = styled.article`
-  border: 1px solid yellowgreen;
-  display: flex;
-  flex-direction: row;
-`;
-
-const CardLink = styled(Link)`
-  border: 1px solid black;
-  padding: 5px;
-  text-decoration: ${(props) => (props.$isDone ? "red wavy underline" : "none")};
-  display: flex;
-  justify-content: center;
-`;
-
-const CardContent = styled.p`
-  border: 1px solid black;
-  padding: 5px;
-  text-decoration: ${(props) => (props.$isDone ? "red wavy underline" : "none")};
-  display: flex;
-  justify-content: center;
-`;
-
-const CardDate = styled.time`
-  margin: 1px;
-  border: 1px solid black;
+const StTime = styled.time`
   display: flex;
   justify-content: right;
 `;
 
-const CardButton = styled.button`
-  margin: 2px;
-  border: 1px solid black;
+const StP2 = styled.p`
+  height: 210px;
+`;
+const StDiv = styled.div`
   display: flex;
-  flex-direction: row;
-  width: 100px;
-  justify-content: center;
+  justify-content: space-between;
+
+  button {
+    width: 100px;
+    height: 30px;
+  }
 `;

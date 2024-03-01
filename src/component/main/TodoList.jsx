@@ -1,9 +1,8 @@
-import useInput from "hooks/useInput";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import styled from "styled-components";
 import { deleteTodos, editTodos, fetchTodos } from "../../axios/api";
 import TodoListItem from "./TodoListItem";
-import { useState } from "react";
+import { StSectionList, StDiv, StDiv2, StUl, StDiv4 } from "stlyes/List.jsx";
 
 function TodoList() {
   const [sort, setSort] = useState();
@@ -78,15 +77,18 @@ function TodoList() {
   };
 
   return (
-    <article className="todoList-area">
-      <select value={sort} onChange={onSortChangeHandler}>
-        <option value="default">정렬</option>
-        <option value="asc">오름차순</option>
-        <option value="desc">내림차순</option>
-      </select>
-      <WorkingArea>
-        <FontSize>Working</FontSize>
-        <WorkingList>
+    <StSectionList>
+      <StDiv>
+        <button>create todo</button>
+        <select value={sort} onChange={onSortChangeHandler}>
+          <option value="default">정렬</option>
+          <option value="asc">오름차순</option>
+          <option value="desc">내림차순</option>
+        </select>
+      </StDiv>
+      <StDiv2>
+        <h1>Working</h1>
+        <StUl>
           {WorkingTodo.map((item) => (
             <TodoListItem
               key={item.id}
@@ -96,12 +98,12 @@ function TodoList() {
               btnText="완료"
             />
           ))}
-        </WorkingList>
-      </WorkingArea>
+        </StUl>
+      </StDiv2>
 
-      <DoneArea>
-        <FontSize>Done</FontSize>
-        <DoneList>
+      <StDiv2>
+        <h1>Done</h1>
+        <StDiv4>
           {DoneTodo.map((item) => (
             <TodoListItem
               key={item.id}
@@ -111,31 +113,10 @@ function TodoList() {
               btnText="취소"
             />
           ))}
-        </DoneList>
-      </DoneArea>
-    </article>
+        </StDiv4>
+      </StDiv2>
+    </StSectionList>
   );
 }
 
 export default TodoList;
-
-const WorkingArea = styled.section`
-  border: 1px solid black;
-`;
-
-const DoneArea = styled.section`
-  border: 1px solid black;
-`;
-
-const WorkingList = styled.article`
-  display: flex;
-  flex-direction: row;
-`;
-const DoneList = styled.article`
-  display: flex;
-  flex: row;
-`;
-
-const FontSize = styled.h1`
-  font-size: 5rem;
-`;

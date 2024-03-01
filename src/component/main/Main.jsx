@@ -1,13 +1,18 @@
+import styled from "styled-components";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
 function Main() {
   return (
-    <main>
+    <StMain>
       <TodoForm />
       <TodoList />
-    </main>
+    </StMain>
   );
 }
 
 export default Main;
+
+const StMain = styled.main`
+  width: 100%;
+`;

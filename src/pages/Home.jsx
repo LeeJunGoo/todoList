@@ -1,5 +1,5 @@
-import Footer from "component/Footer";
-import Header from "component/Header";
+import Footer from "component/common/Footer";
+import Header from "component/common/Header";
 import Main from "component/main/Main";
 import React from "react";
 

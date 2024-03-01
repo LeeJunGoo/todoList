@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { createTodos } from "../../axios/api";
-import { useMutation, useQueryClient } from "react-query";
 import useInput from "hooks/useInput";
+import { useMutation, useQueryClient } from "react-query";
+import { createTodos } from "../../axios/api";
+import { StSectionForm, StForm, StInput, StTextarea } from "stlyes/Form.jsx";
 
 function TodoForm() {
   const [title, onTitleChangeHandler, InitialTitle] = useInput();
@@ -43,14 +43,22 @@ function TodoForm() {
   }
 
   return (
-    <article className="search-area">
-      <form onSubmit={setSubmit}>
-        <input type="text" value={title} onChange={onTitleChangeHandler}></input>
-        <input type="text" value={content} onChange={onContentChangeHandler}></input>
-        <input type="date" value={date} onChange={onDeadlineChangeHandler}></input>
-        <button type="submit">추가하기</button>
-      </form>
-    </article>
+    <StSectionForm>
+      <p>그래 도전하는 거야!</p>
+      <StForm onSubmit={setSubmit}>
+        <p>주르제</p>
+        <StInput type="text" value={title} onChange={onTitleChangeHandler}></StInput>
+
+        <p>내요옹</p>
+        <StTextarea type="text" value={content} onChange={onContentChangeHandler}></StTextarea>
+
+        <p>양송 일정</p>
+        <StInput type="date" value={date} onChange={onDeadlineChangeHandler}></StInput>
+
+        <button type="submit">작성</button>
+        <button type="submit">취소</button>
+      </StForm>
+    </StSectionForm>
   );
 }
 
