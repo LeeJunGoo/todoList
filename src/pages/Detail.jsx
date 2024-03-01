@@ -1,5 +1,5 @@
 import { deleteTodos, editTodos, singleTodo } from "../axios/api";
-import TodoItem from "component/main/TodoItem";
+import TodoListItem from "component/main/TodoListItem";
 import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
@@ -55,7 +55,7 @@ function Detail() {
       <WorkingArea>
         <FontSize>DetailPage</FontSize>
         <WorkingList>
-          <TodoItem
+          <TodoListItem
             key={todo.id}
             curTodo={todo}
             ToggleButton={ToggleButtonHandler}

@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { editTodos, fetchTodos, deleteTodos } from "../../axios/api";
-import TodoItem from "./TodoItem";
+import TodoItem from "./TodoListItem";
 
 function TodoList() {
   const queryClient = useQueryClient();
