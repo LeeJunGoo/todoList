@@ -5,6 +5,10 @@ export const StSectionForm = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 `;
 
 export const StForm = styled.form`

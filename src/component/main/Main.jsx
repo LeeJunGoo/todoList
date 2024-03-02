@@ -15,5 +15,5 @@ export default Main;
 
 const StMain = styled.main`
   width: 100%;
-  padding: 50px;
+  padding: 161px 50px 50px 50px;
 `;

@@ -4,7 +4,7 @@ import { StHeader } from "stlyes/Common.jsx";
 function Header() {
   return (
     <StHeader>
-      <p>TodoList</p>
+      <h1>TodoList</h1>
     </StHeader>
   );
 }

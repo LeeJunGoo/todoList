@@ -1,7 +1,7 @@
 import {
   StDiv5,
   StFigure,
-  StP,
+  StH2,
   StP2,
   StTime,
   StWorkingLi,
@@ -21,7 +21,7 @@ function TodoItem({ curTodo, ToggleButton, DeleteButton, btnText }) {
   return curTodo.isDone === false ? (
     <StWorkingLi>
       <StFront>
-        <StP>{curTodo.title}</StP>
+        <StH2>{curTodo.title}</StH2>
         <StTime>{date.toLocaleDateString("ko-KR", options)}</StTime>
         <StFigure>
           <img src={profile}></img>
@@ -44,7 +44,7 @@ function TodoItem({ curTodo, ToggleButton, DeleteButton, btnText }) {
   ) : (
     <StDoneLi>
       <StDiv7>
-        <p>{curTodo.title}</p>
+        <h2>{curTodo.title}</h2>
         <time>{date.toLocaleDateString("ko-KR", options)}</time>
       </StDiv7>
 

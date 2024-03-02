@@ -2,9 +2,12 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { deleteTodos, editTodos, fetchTodos } from "../../axios/api";
 import TodoListItem from "./TodoListItem";
 import { StSectionList, StDiv1, StDiv2, StWorkingUl, StDoneUl } from "stlyes/List.jsx";
+import { useDispatch } from "react-redux";
+import { modalToggle } from "store/modules/modalForm";
 
 function TodoList() {
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
 
   //todo 데이터 가져오기
   const {
@@ -54,7 +57,9 @@ function TodoList() {
     deleteMutate(id);
   };
 
-  const onCreateTodoHandler = () => {};
+  const onCreateTodoHandler = () => {
+    dispatch(modalToggle(true));
+  };
 
   return (
     <StSectionList>

@@ -6,6 +6,11 @@ export const StHeader = styled.header`
   display: flex;
   justify-content: center;
   font-size: 40px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  padding: 30px 0;
+  position: fixed;
+  z-index: 1;
+  background-color: white;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid #ccc;
 `;

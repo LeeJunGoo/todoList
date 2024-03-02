@@ -56,7 +56,7 @@ export const StDoneUl = styled.ul`
 // Working Li 태그
 
 export const StWorkingLi = styled.li`
-  width: 275px;
+  width: 288px;
   height: 400px;
   position: relative;
   perspective: 2000px;
@@ -104,7 +104,7 @@ export const StLink = styled(Link)`
   }
 `;
 
-export const StP = styled.p`
+export const StH2 = styled.h2`
   font-size: 40px;
 `;
 
@@ -151,14 +151,16 @@ export const StDiv5 = styled.div`
 export const StDoneLi = styled.li`
   display: flex;
   justify-content: space-between;
-  height: 70px;
-  padding: 5px;
+  height: 100px;
+  padding: 20px 20px 40px;
+
   border: 1px solid black;
   border-radius: 5px;
 `;
 
 export const StDiv6 = styled.div`
   display: flex;
+  height: 60px;
   flex-direction: column;
   gap: 5px;
 
@@ -177,15 +179,13 @@ export const StDiv6 = styled.div`
 `;
 
 export const StDiv7 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  p {
+  h2 {
     font-size: 25px;
+    margin-bottom: 10px;
   }
 
-  date {
-    font-size: 15px;
+  time {
+    font-size: 14px;
+    color: #999;
   }
 `;
