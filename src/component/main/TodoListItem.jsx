@@ -1,4 +1,17 @@
-import { StDiv5, StFigure, StP, StP2, StTime, StWorkingLi, StDoneLi, StDiv6, StDiv7 } from "stlyes/List";
+import {
+  StDiv5,
+  StFigure,
+  StP,
+  StP2,
+  StTime,
+  StWorkingLi,
+  StDoneLi,
+  StDiv6,
+  StDiv7,
+  StFront,
+  StBack,
+  StLink,
+} from "stlyes/List";
 import profile from "../../assets/images/logo.png";
 
 function TodoItem({ curTodo, ToggleButton, DeleteButton, btnText }) {
@@ -7,26 +20,32 @@ function TodoItem({ curTodo, ToggleButton, DeleteButton, btnText }) {
 
   return curTodo.isDone === false ? (
     <StWorkingLi>
-      <StP>{curTodo.title}</StP>
-      <StTime>{date.toLocaleDateString("ko-KR", options)}</StTime>
+      <StFront>
+        <StP>{curTodo.title}</StP>
+        <StTime>{date.toLocaleDateString("ko-KR", options)}</StTime>
+        <StFigure>
+          <img src={profile}></img>
+          <span>닉네임</span>
+        </StFigure>
 
-      <StFigure>
-        <img src={profile}></img>
-        <span>닉네임</span>
-        {/* <Link $isDone={curTodo.isDone} to={`/detail/${curTodo.id}`}></Link> */}
-      </StFigure>
+        <StP2 $isDone={curTodo.isDone}>{curTodo.content}</StP2>
+      </StFront>
+      <StBack>
+        <StLink $isDone={curTodo.isDone} to={`/detail/${curTodo.id}`}>
+          더보기
+        </StLink>
 
-      <StP2 $isDone={curTodo.isDone}>{curTodo.content}</StP2>
-      <StDiv5>
-        <button onClick={() => ToggleButton({ id: curTodo.id, isDone: !curTodo.isDone })}>{btnText}</button>
-        <button onClick={() => DeleteButton(curTodo.id)}>삭제</button>
-      </StDiv5>
+        <StDiv5>
+          <button onClick={() => ToggleButton({ id: curTodo.id, isDone: !curTodo.isDone })}>{btnText}</button>
+          <button onClick={() => DeleteButton(curTodo.id)}>삭제</button>
+        </StDiv5>
+      </StBack>
     </StWorkingLi>
   ) : (
     <StDoneLi>
       <StDiv7>
         <p>{curTodo.title}</p>
-        <date>{date.toLocaleDateString("ko-KR", options)}</date>
+        <time>{date.toLocaleDateString("ko-KR", options)}</time>
       </StDiv7>
 
       <StDiv6>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const StSectionList = styled.section`
@@ -43,7 +44,7 @@ export const StDiv2 = styled.div`
 
 export const StWorkingUl = styled.ul`
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   gap: 30px;
 `;
 export const StDoneUl = styled.ul`
@@ -53,12 +54,54 @@ export const StDoneUl = styled.ul`
 `;
 
 // Working Li 태그
+
 export const StWorkingLi = styled.li`
-  border: 1px solid tan;
-  border-radius: 5px;
-  padding: 20px;
-  width: 300px;
+  width: 275px;
   height: 400px;
+  position: relative;
+  perspective: 2000px;
+
+  transition: 0.8s;
+  transform-style: preserve-3d;
+  background-color: #6ea477;
+  border-radius: 5px;
+
+  &:hover {
+    transform: rotateY(180deg);
+  }
+`;
+
+export const StFront = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  padding: 20px;
+`;
+
+export const StBack = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+
+  background: royalblue;
+  border-radius: 5px;
+  transform: rotateY(180deg);
+`;
+
+export const StLink = styled(Link)`
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+
+  &:hover {
+    color: #fff;
+  }
 `;
 
 export const StP = styled.p`
@@ -88,10 +131,9 @@ export const StP2 = styled.p`
 
 export const StDiv5 = styled.div`
   display: flex;
-  justify-content: space-between;
-
+  justify-content: space-around;
   button {
-    border: 1px solid #fff;
+    border: 1px;
     border-radius: 5px;
     width: 100px;
     height: 35px;

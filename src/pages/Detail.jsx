@@ -51,42 +51,19 @@ function Detail() {
   };
 
   return (
-    <article className="todoList-area">
-      <WorkingArea>
-        <FontSize>DetailPage</FontSize>
-        <WorkingList>
-          <TodoListItem
-            key={todo.id}
-            curTodo={todo}
-            ToggleButton={ToggleButtonHandler}
-            DeleteButton={DeleteButtonHandler}
-            btnText="완료"
-          />
-        </WorkingList>
-      </WorkingArea>
-    </article>
+    <div>
+      <p>DetailPage</p>
+      <div>
+        <TodoListItem
+          key={todo.id}
+          curTodo={todo}
+          ToggleButton={ToggleButtonHandler}
+          DeleteButton={DeleteButtonHandler}
+          btnText="완료"
+        />
+      </div>
+    </div>
   );
 }
 
 export default Detail;
-
-const WorkingArea = styled.section`
-  border: 1px solid black;
-`;
-
-const DoneArea = styled.section`
-  border: 1px solid black;
-`;
-
-const WorkingList = styled.article`
-  display: flex;
-  flex-direction: row;
-`;
-const DoneList = styled.article`
-  display: flex;
-  flex: row;
-`;
-
-const FontSize = styled.h1`
-  font-size: 5rem;
-`;

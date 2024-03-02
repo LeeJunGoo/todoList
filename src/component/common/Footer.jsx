@@ -1,10 +1,7 @@
-import React from 'react'
+import React from "react";
+import { StHeader } from "stlyes/Common";
 function Footer() {
-  return (
-    <footer>
-    <p>footer</p>
-    </footer>
-  )
+  return <StHeader></StHeader>;
 }
 
-export default Footer
+export default Footer;
