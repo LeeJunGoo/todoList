@@ -56,7 +56,7 @@ function TodoForm() {
         <StInput type="date" value={date} onChange={onDeadlineChangeHandler}></StInput>
 
         <button type="submit">작성</button>
-        <button type="submit">취소</button>
+        <button type="button">취소</button>
       </StForm>
     </StSectionForm>
   );

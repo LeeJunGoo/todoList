@@ -5,7 +5,6 @@ export const StSectionForm = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 50px;
 `;
 
 export const StForm = styled.form`

@@ -15,4 +15,5 @@ export default Main;
 
 const StMain = styled.main`
   width: 100%;
+  padding: 50px;
 `;

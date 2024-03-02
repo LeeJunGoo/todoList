@@ -3,7 +3,7 @@ import axios from "axios";
 //Axios instance 생성
 const todoClient = axios.create({
   //   baseURL: process.env.REACT_APP_SERVER_URL,
-  baseURL: "http://localhost:5000",
+  baseURL: "http://localhost:4000",
   headers: {
     "Content-Type": "application/json",
   },

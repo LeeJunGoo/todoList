@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { deleteTodos, editTodos, fetchTodos } from "../../axios/api";
 import TodoListItem from "./TodoListItem";
-import { StSectionList, StDiv, StDiv2, StUl, StDiv4 } from "stlyes/List.jsx";
+import { StSectionList, StDiv1, StDiv2, StWorkingUl, StDoneUl } from "stlyes/List.jsx";
 
 function TodoList() {
   const [sort, setSort] = useState();
@@ -78,17 +78,17 @@ function TodoList() {
 
   return (
     <StSectionList>
-      <StDiv>
+      <StDiv1>
         <button>create todo</button>
         <select value={sort} onChange={onSortChangeHandler}>
           <option value="default">정렬</option>
           <option value="asc">오름차순</option>
           <option value="desc">내림차순</option>
         </select>
-      </StDiv>
+      </StDiv1>
       <StDiv2>
-        <h1>Working</h1>
-        <StUl>
+        <h2>Working</h2>
+        <StWorkingUl>
           {WorkingTodo.map((item) => (
             <TodoListItem
               key={item.id}
@@ -98,12 +98,12 @@ function TodoList() {
               btnText="완료"
             />
           ))}
-        </StUl>
+        </StWorkingUl>
       </StDiv2>
 
       <StDiv2>
-        <h1>Done</h1>
-        <StDiv4>
+        <h2>Done</h2>
+        <StDoneUl>
           {DoneTodo.map((item) => (
             <TodoListItem
               key={item.id}
@@ -113,7 +113,7 @@ function TodoList() {
               btnText="취소"
             />
           ))}
-        </StDiv4>
+        </StDoneUl>
       </StDiv2>
     </StSectionList>
   );
