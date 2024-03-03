@@ -1,5 +1,5 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["Axios", "reduxjs", "todos"],
+  "cSpell.words": ["Axios", "reduxjs", "stlyes", "todos"],
   "prettier.printWidth": 120
 }

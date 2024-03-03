@@ -46,5 +46,11 @@ table {
 }
 
 
+*{
+  box-sizing: border-box;
+}
+
+
+
 
     `;

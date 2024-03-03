@@ -1,25 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import styled from "styled-components";
-import { editTodos, fetchTodos, deleteTodos } from "../../axios/api";
-import TodoItem from "./TodoItem";
+import { deleteTodos, editTodos, fetchTodos } from "../../axios/api";
+import TodoListItem from "./TodoListItem";
+import { StSectionList, StDiv1, StDiv2, StWorkingUl, StDoneUl } from "stlyes/List.jsx";
+import { useDispatch } from "react-redux";
+import { modalToggle } from "store/modules/modalForm";
 
 function TodoList() {
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
 
-  const { mutate: toggleMutate } = useMutation({
-    mutationFn: ({ id, isDone }) => editTodos(id, isDone),
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
-
-  const { mutate: deleteMutate } = useMutation({
-    mutationFn: (id) => deleteTodos(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
-
+  //todo 데이터 가져오기
   const {
     data: todos,
     isLoading,
@@ -27,6 +17,22 @@ function TodoList() {
   } = useQuery({
     queryKey: ["todos"],
     queryFn: fetchTodos,
+  });
+
+  //토글 변경
+  const { mutate: toggleMutate } = useMutation({
+    mutationFn: ({ id, isDone }) => editTodos(id, isDone),
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+    },
+  });
+
+  //삭제
+  const { mutate: deleteMutate } = useMutation({
+    mutationFn: (id) => deleteTodos(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+    },
   });
 
   if (isLoading) {
@@ -43,21 +49,28 @@ function TodoList() {
     .filter((item) => (!item.isDone ? true : false))
     .sort((a, b) => new Date(a.deadline) - new Date(b.deadline)); //false
 
-  const ToggleButtonHandler = async (todo) => {
+  const ToggleButtonHandler = (todo) => {
     toggleMutate(todo);
   };
 
-  const DeleteButtonHandler = async (id) => {
+  const DeleteButtonHandler = (id) => {
     deleteMutate(id);
   };
 
+  const onCreateTodoHandler = () => {
+    dispatch(modalToggle(true));
+  };
+
   return (
-    <article className="todoList-area">
-      <WorkingArea>
-        <FontSize>Working</FontSize>
-        <WorkingList>
+    <StSectionList>
+      <StDiv1>
+        <button onClick={onCreateTodoHandler}>create todo</button>
+      </StDiv1>
+      <StDiv2>
+        <h2>Working</h2>
+        <StWorkingUl>
           {WorkingTodo.map((item) => (
-            <TodoItem
+            <TodoListItem
               key={item.id}
               curTodo={item}
               ToggleButton={ToggleButtonHandler}
@@ -65,14 +78,14 @@ function TodoList() {
               btnText="완료"
             />
           ))}
-        </WorkingList>
-      </WorkingArea>
+        </StWorkingUl>
+      </StDiv2>
 
-      <DoneArea>
-        <FontSize>Done</FontSize>
-        <DoneList>
+      <StDiv2>
+        <h2>Done</h2>
+        <StDoneUl>
           {DoneTodo.map((item) => (
-            <TodoItem
+            <TodoListItem
               key={item.id}
               curTodo={item}
               ToggleButton={ToggleButtonHandler}
@@ -80,31 +93,10 @@ function TodoList() {
               btnText="취소"
             />
           ))}
-        </DoneList>
-      </DoneArea>
-    </article>
+        </StDoneUl>
+      </StDiv2>
+    </StSectionList>
   );
 }
 
 export default TodoList;
-
-const WorkingArea = styled.section`
-  border: 1px solid black;
-`;
-
-const DoneArea = styled.section`
-  border: 1px solid black;
-`;
-
-const WorkingList = styled.article`
-  display: flex;
-  flex-direction: row;
-`;
-const DoneList = styled.article`
-  display: flex;
-  flex: row;
-`;
-
-const FontSize = styled.h1`
-  font-size: 5rem;
-`;

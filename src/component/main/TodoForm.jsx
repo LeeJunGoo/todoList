@@ -1,13 +1,19 @@
-import React, { useState } from "react";
-import { createTodos } from "../../axios/api";
+import useInput from "hooks/useInput";
 import { useMutation, useQueryClient } from "react-query";
+import { createTodos } from "../../axios/api";
+import { StSectionForm, StForm, StInput, StTextarea } from "stlyes/Form.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { modalToggle } from "../../store/modules/modalForm";
+import styled from "styled-components";
 
 function TodoForm() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [date, setDate] = useState("");
-  const [sort, setSort] = useState("");
+  const [title, onTitleChangeHandler, InitialTitle] = useInput();
+  const [content, onContentChangeHandler, initialContent] = useInput();
+  const [date, onDeadlineChangeHandler, initialDate] = useInput();
+  const selector = useSelector((state) => state.modalToggle);
+  const dispatch = useDispatch();
 
+  console.log(selector);
   const queryClient = useQueryClient();
   const { mutate, isPending, isError } = useMutation({
     mutationFn: (newTodo) => createTodos(newTodo),
@@ -17,52 +23,22 @@ function TodoForm() {
     },
   });
 
-  const onTitleChangeHandler = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const onContentChangeHandler = (e) => {
-    setContent(e.target.value);
-  };
-
-  const onDeadlineChangeHandler = (e) => {
-    setDate(e.target.value);
-  };
-
-  const onSortChangeHandler = (e) => {
-    const order = e.target.value;
-
-    setSort(order);
-
-    // setTodo((prev) => {
-    //   const sortedTodo = [...prev].sort((a, b) => {
-    //     if (order === "asc") {
-    //       return new Date(a.deadline) - new Date(b.deadline); // 오름차순 정렬
-    //     } else if (order === "desc") {
-    //       return new Date(b.deadline) - new Date(a.deadline); // 내림차순 정렬
-    //     }
-    //   });
-
-    //   return sortedTodo; // 정렬된 배열 반환
-    // });
-  };
-
   const setSubmit = (e) => {
     e.preventDefault();
 
     const newTodo = {
       id: crypto.randomUUID(),
-      title: title,
-      content: content,
+      title,
+      content,
       isDone: false,
       deadline: date.toString(),
     };
 
     mutate(newTodo);
 
-    setTitle("");
-    setContent("");
-    setDate("");
+    InitialTitle();
+    initialContent();
+    initialDate();
   };
   if (isPending) {
     //수행문
@@ -73,20 +49,44 @@ function TodoForm() {
   }
 
   return (
-    <article className="search-area">
-      <form onSubmit={setSubmit}>
-        <input type="text" value={title} onChange={onTitleChangeHandler}></input>
-        <input type="text" value={content} onChange={onContentChangeHandler}></input>
-        <input type="date" value={date} onChange={onDeadlineChangeHandler}></input>
-        <button type="submit">추가하기</button>
-      </form>
-      <select value={sort} onChange={onSortChangeHandler}>
-        <option value="default">정렬</option>
-        <option value="asc">오름차순</option>
-        <option value="desc">내림차순</option>
-      </select>
-    </article>
+    <>
+      {selector ? (
+        <StDiv>
+          <StSectionForm>
+            <p>그래 도전하는 거야!</p>
+            <StForm onSubmit={setSubmit}>
+              <p>주르제</p>
+              <StInput type="text" value={title} onChange={onTitleChangeHandler}></StInput>
+
+              <p>내요옹</p>
+              <StTextarea type="text" value={content} onChange={onContentChangeHandler}></StTextarea>
+
+              <p>양송 일정</p>
+              <StInput type="date" value={date} onChange={onDeadlineChangeHandler}></StInput>
+
+              <button type="submit">작성</button>
+              <button type="button" onClick={() => dispatch(modalToggle(false))}>
+                취소
+              </button>
+            </StForm>
+          </StSectionForm>
+        </StDiv>
+      ) : null}
+    </>
   );
 }
 
 export default TodoForm;
+
+const StDiv = styled.div`
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
